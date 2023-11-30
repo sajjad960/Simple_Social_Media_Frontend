@@ -32,7 +32,7 @@ export default function CommentBox() {
         />
       </FormControl>
       <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", p:3}}>
-        <Box sx={{width: "8rem"}}>
+        <Box sx={{width: "10rem"}}>
           <Typography variant="h5" component="h5">
             Sajjad
           </Typography>
