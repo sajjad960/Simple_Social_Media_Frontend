@@ -21,9 +21,10 @@ const style = {
 };
 
 export default function CreatePostModal() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [uploadedImages, setUploadedImages] = React.useState<string[]>([]);
 
   return (
     <div>
@@ -55,7 +56,7 @@ export default function CreatePostModal() {
               maxRows={12}
             />
             <Box sx={{ mt: 2 }}>
-              <UploadImages />
+              <UploadImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
             </Box>
             <Box>
               <Button

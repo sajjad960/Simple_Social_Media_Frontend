@@ -1,9 +1,26 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import PostCard from "./Posts/PostCard";
 
 const Posts = () => {
   return (
-    <Container sx={{ mt: 6 }}>
-      <Typography variant="h5" component="h5">All Posts..............</Typography>
+    <Container sx={{ mt: 5 }}>
+      <Typography variant="h4" component="h4">
+        All Posts..............
+      </Typography>
+
+      <Box sx={{ mt: 4 }}>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6} md={4}>
+            <PostCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <PostCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <PostCard />
+          </Grid>
+        </Grid>
+      </Box>
     </Container>
   );
 };
