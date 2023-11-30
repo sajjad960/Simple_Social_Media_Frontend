@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import Reactions from './Reactions';
 
 export default function PostCard() {
   return (
@@ -24,6 +25,7 @@ export default function PostCard() {
             species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
+        <Reactions/>
       </CardActionArea>
     </Card>
   );

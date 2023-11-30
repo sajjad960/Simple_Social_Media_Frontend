@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
-import PostCard from "./Posts/PostCard";
+import PostCard from "./PostCard";
 
 const Posts = () => {
   return (
@@ -13,12 +13,7 @@ const Posts = () => {
           <Grid item xs={12} sm={6} md={4}>
             <PostCard />
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <PostCard />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <PostCard />
-          </Grid>
+         
         </Grid>
       </Box>
     </Container>

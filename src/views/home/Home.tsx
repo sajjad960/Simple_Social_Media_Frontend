@@ -1,6 +1,6 @@
 import { Container } from "@mui/material"
-import CreatePost from "./components/CreatePost"
-import Posts from "./components/Posts"
+import CreatePost from "./components/CreatePost/CreatePost"
+import Posts from "./components/Posts/Posts"
 import SimpleAppBar from "./components/SimpleAppBar"
 
 const Home = () => {
