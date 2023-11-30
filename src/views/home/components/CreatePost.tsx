@@ -1,9 +1,9 @@
-import { Button } from "@mui/material"
+import CreatePostModal from "./CreatePost/Modal"
 
 const CreatePost = () => {
   return (
     <div>
-        <Button variant="contained">Create Post</Button>
+        <CreatePostModal/>
     </div>
   )
 }
