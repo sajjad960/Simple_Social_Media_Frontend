@@ -5,7 +5,7 @@ const Posts = () => {
   return (
     <Container sx={{ mt: 5 }}>
       <Typography variant="h4" component="h4">
-        All Posts..............
+        All Posts
       </Typography>
 
       <Box sx={{ mt: 4 }}>
