@@ -4,7 +4,6 @@ import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import { Typography } from "@mui/material";
 import Reactions from "./Reactions";
-import { useState } from "react";
 import RepliesModal from "./RepliesModal";
 
 type CommentBoxPros = {

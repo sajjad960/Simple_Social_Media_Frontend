@@ -5,8 +5,6 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/material/Typography";
-import { TextField } from "@mui/material";
-import UploadImages from "./UploadImages";
 import CommentBox from "./CommentBox";
 
 const style = {
