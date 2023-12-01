@@ -15,7 +15,7 @@ const CommentSection = () => {
       >
         Comment
       </Button>
-      <Box>{openCommentSection && <CommentBox />}</Box>
+      <Box>{openCommentSection && <CommentBox showReplies={true}/>}</Box>
     </div>
   );
 };

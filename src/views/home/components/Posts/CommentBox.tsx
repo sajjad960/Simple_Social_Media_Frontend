@@ -4,8 +4,13 @@ import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import { Typography } from "@mui/material";
 import Reactions from "./Reactions";
+import { useState } from "react";
+import RepliesModal from "./RepliesModal";
 
-export default function CommentBox() {
+type CommentBoxPros = {
+  showReplies: boolean,
+}
+export default function CommentBox({showReplies}: CommentBoxPros) {
   return (
     <>
       <FormControl>
@@ -40,7 +45,8 @@ export default function CommentBox() {
           <Reactions size={20}/>
         </Box>
         <Box>
-          <Button variant="soft">Reply (5)</Button>
+          {showReplies && <RepliesModal/>}
+          
         </Box>
       </Box>
     </>
