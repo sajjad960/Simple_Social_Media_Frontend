@@ -1,6 +1,6 @@
 //bring action with type
 // import { StaticStations } from '../../utiles/constants';
-import { Action, ActionType } from './stationActions';
+import { Action, ActionType } from './postActions';
 
 //define state variable with their type
 export interface stationState {
@@ -21,21 +21,21 @@ const initialState: stationState = {
     error: '',
 };
 
-const stationReducer = (state = initialState, action: Action) => {
+const postReducer = (state = initialState, action: Action) => {
     switch (action.type) {
-        case ActionType?.GET_ALL_STATION:
+        case ActionType?.GET_ALL_POSTS:
             return {
                 ...state,
                 allStation: action?.payload,
                 loading: false,
             };
-        case ActionType?.GET_SINGLE_STATION:
+        case ActionType?.GET_SINGLE_POSTS:
             // eslint-disable-next-line no-case-declarations
-            const selectedStation = state?.allStation.find((station) => station?.id === action?.payload);
+            // const selectedStation = state?.allStation.find((station) => station?.id === action?.payload);
             return {
                 ...state,
-                singleStation: selectedStation,
-                playingStation: selectedStation,
+                // singleStation: selectedStation,
+                // playingStation: selectedStation,
                 loading: false,
             };
         case ActionType?.LOADING:
@@ -54,4 +54,4 @@ const stationReducer = (state = initialState, action: Action) => {
     }
 };
 
-export default stationReducer;
+export default postReducer;

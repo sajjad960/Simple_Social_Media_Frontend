@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 // our all reducer goes here,
-import stationReducer from './StationRedux/stationReducer'
+import postReducer from './postRedux/postReducer'
 
 const rootReducers = combineReducers({
     // station reducer
-    stationReducer,
+    postReducer,
 });
 
 export default rootReducers;

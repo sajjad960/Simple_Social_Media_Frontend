@@ -1,8 +1,8 @@
 
 //all auth related Action type will be defined here
 export enum ActionType {
-    GET_ALL_STATION = 'GET_ALL_STATION',
-    GET_SINGLE_STATION = 'GET_SINGLE_STATION',
+    GET_ALL_POSTS = 'GET_ALL_POSTS',
+    GET_SINGLE_POSTS= 'GET_SINGLE_POSTS',
     //for loading screen
     LOADING = 'LOADING',
     //ERROR
@@ -12,13 +12,13 @@ export enum ActionType {
 //operations type define
 
 interface actionGetAllStation {
-    type: ActionType.GET_ALL_STATION;
-    payload: any;
+    type: ActionType.GET_ALL_POSTS;
+    payload: unknown;
 }
 
 interface actionGetSingleStation {
-    type: ActionType.GET_SINGLE_STATION;
-    payload: any;
+    type: ActionType.GET_SINGLE_POSTS;
+    payload: unknown;
 
 }
 

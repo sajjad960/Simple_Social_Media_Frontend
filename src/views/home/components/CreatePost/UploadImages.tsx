@@ -19,16 +19,19 @@ const VisuallyHiddenInput = styled("input")({
 type uploadImageProps = {
   uploadedImages: string[],
   setUploadedImages: React.Dispatch<React.SetStateAction<string[]>>,
+  setUploadedImagesFiles: React.Dispatch<React.SetStateAction<FileList[]>>,
 }
 
-export default function UploadImages({uploadedImages, setUploadedImages}: uploadImageProps) {
+export default function UploadImages({uploadedImages, setUploadedImages, setUploadedImagesFiles}: uploadImageProps) {
   // const [uploadedImages, setUploadedImages] = useState([]);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
   
+    console.log(files)
     // Check if files is not null before proceeding
     if (files) {
+      setUploadedImagesFiles((prevImages) => [...prevImages, files])
       // Convert the FileList to an array
       const newImages = Array.from(files).map((file) =>
         URL.createObjectURL(file)

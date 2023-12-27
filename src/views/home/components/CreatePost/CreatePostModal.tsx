@@ -13,7 +13,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 400, 
   bgcolor: "#fff",
   border: "2px solid #000",
   boxShadow: 24,
@@ -25,6 +25,8 @@ export default function CreatePostModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [uploadedImages, setUploadedImages] = React.useState<string[]>([]);
+  const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<FileList[]>([]);
+  console.log(uploadedImages, uploadedImagesFiles)
 
   return (
     <div>
@@ -56,7 +58,7 @@ export default function CreatePostModal() {
               maxRows={12}
             />
             <Box sx={{ mt: 2 }}>
-              <UploadImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} />
+              <UploadImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} setUploadedImagesFiles={setUploadedImagesFiles} />
             </Box>
             <Box>
               <Button

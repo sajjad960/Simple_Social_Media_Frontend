@@ -1,4 +1,4 @@
-import CreatePostModal from "./Modal"
+import CreatePostModal from "./CreatePostModal"
 
 const CreatePost = () => {
   return (
