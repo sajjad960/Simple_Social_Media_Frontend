@@ -28,7 +28,6 @@ export default function UploadImages({uploadedImages, setUploadedImages, setUplo
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
   
-    console.log(files)
     // Check if files is not null before proceeding
     if (files) {
       setUploadedImagesFiles((prevImages) => [...prevImages, files])

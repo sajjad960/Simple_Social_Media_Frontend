@@ -13,7 +13,7 @@ export default function SimpleAppBar() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" color="inherit" component="div">
-            Wellcome To Post Media
+            Wellcome To Simple Social Media
           </Typography>
         </Toolbar>
       </AppBar>
