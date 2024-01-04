@@ -1,11 +1,7 @@
 import axios from "axios";
 import autoBind from "auto-bind";
+import { ConstructorProps, PostPutMethodProps } from "../Common/types";
 
-interface ConstructorProps {
-  baseURL: string;
-  commonHeaders: object;
-  timeout: number;
-}
 interface RequestProps {
   options: object;
   fullResponse: boolean;
@@ -16,12 +12,7 @@ interface GetDeleteMethodProps {
   fullResponse: boolean;
   others: object;
 }
-interface PostPutMethodProps {
-  url: string;
-  data: object;
-  fullResponse: boolean;
-  others: object;
-}
+
 
 export default class ApiBase {
   axiosClient;
