@@ -9,9 +9,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import useApi from '../../hooks/useApi';
 
 
 export default function SignIn() {
+    const api = useApi();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -19,6 +22,7 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    api.signUp(data)
   };
 
   return (

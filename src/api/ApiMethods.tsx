@@ -1,14 +1,18 @@
 import autoBind from "auto-bind";
 import ApiBase from "./Abstractions/ApiBase";
 import { ConstructorProps, PostPutMethodProps } from "./Common/types";
+import { AxiosResponse } from "axios";
 
+interface ApiMethodsPros {
+    signUp: (data: object) => Promise<AxiosResponse>; 
+}
 
-export default class ApiMethods extends ApiBase {
+export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     constructor(props: ConstructorProps){
         super(props);
         autoBind(this)
     }
-    async singUp(data: object) {
+    async signUp(data: object) {
         const passingData: PostPutMethodProps = {
             url: "/auth/register",
             data,
@@ -17,6 +21,6 @@ export default class ApiMethods extends ApiBase {
         }
         const resultData = await this.post(passingData);
         return resultData;
-      }
+    }
     
 }
