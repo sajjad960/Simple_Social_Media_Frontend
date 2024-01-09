@@ -9,19 +9,37 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
+import useApi from '../../hooks/useApi';
+import { useMutation } from '@tanstack/react-query';
+import useAuthToken from '../../hooks/auth/useAuthToken';
+import { SignUpParams, SignUpResponse } from '../../api/Common/types';
 
 
 export default function SignUp() {
+  const api = useApi()
+  const {setAuthToken} = useAuthToken()
+
+  const { mutate } = useMutation(
+    {
+      mutationFn: (params: SignUpParams) => api.signUp(params),
+      onSuccess: (data: SignUpResponse) => {
+        setAuthToken(data.token)
+      }
+    },
+  );
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      userName: data.get('userName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const bodyData: SignUpParams = {
+      name: data.get("name"),
+      userName: data.get("userName"),
+      email: data.get("email"),
+      password: data.get("password"),
+    }
+
+    mutate(bodyData)
   };
 
   return (
