@@ -11,7 +11,7 @@ export interface PostPutMethodProps {
   others: object | undefined;
 }
 
-
+// Sign Up Types
 export type SignUpResponse = {
   token: React.SetStateAction<null>;
   status: string;
@@ -22,4 +22,15 @@ export type SignUpParams = {
   userName: FormDataEntryValue | null;
   email: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
+};
+
+// Sign In Types
+export type SignInParams = {
+  email: FormDataEntryValue | null;
+  password: FormDataEntryValue | null;
+};
+
+export type SignInResponse = {
+  token: React.SetStateAction<null>;
+  status: string;
 };
