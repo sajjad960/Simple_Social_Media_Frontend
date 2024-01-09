@@ -11,13 +11,8 @@ export interface PostPutMethodProps {
   others: object | undefined;
 }
 
-type SignUpUser = {
-  id: number,
-  name: string
-}
 
 export type SignUpResponse = {
-  user: SignUpUser;
   token: React.SetStateAction<null>;
   status: string;
 };

@@ -13,17 +13,22 @@ import useApi from '../../hooks/useApi';
 import { useMutation } from '@tanstack/react-query';
 import useAuthToken from '../../hooks/auth/useAuthToken';
 import { SignUpParams, SignUpResponse } from '../../api/Common/types';
+import { useNavigate } from 'react-router-dom';
+import useRedirectIfTokenExists from '../../hooks/useRedirectIfTokenExists';
 
 
 export default function SignUp() {
+  useRedirectIfTokenExists()
   const api = useApi()
   const {setAuthToken} = useAuthToken()
+  const navigate = useNavigate();
 
   const { mutate } = useMutation(
     {
       mutationFn: (params: SignUpParams) => api.signUp(params),
       onSuccess: (data: SignUpResponse) => {
         setAuthToken(data.token)
+        navigate("/")
       }
     },
   );
