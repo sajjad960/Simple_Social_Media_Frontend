@@ -1,6 +1,6 @@
 import autoBind from "auto-bind";
 import ApiBase from "./Abstractions/ApiBase";
-import { ConstructorProps, PostPutMethodProps, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from "./Common/types";
+import { ConstructorProps, GetDeleteMethodProps, PostPutMethodProps, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from "./Common/types";
 
 
 interface ApiMethodsPros {
@@ -32,5 +32,17 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
       };
       const resultData = await this.post(passingData);
       return resultData;
+  }
+  async userProfile() {
+    const passingData: GetDeleteMethodProps = {
+      url: "/users/me",
+      params: {},
+      fullResponse: false,
+      others: undefined,
+    };
+
+    const resultData = await this.get(passingData);
+    return resultData
+
   }
 }

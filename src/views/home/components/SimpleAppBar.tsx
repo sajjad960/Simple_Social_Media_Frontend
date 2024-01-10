@@ -4,9 +4,18 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import useAuthToken from "../../../hooks/auth/useAuthToken";
+import useProfile from "../../../hooks/useProfile";
+import { useEffect } from "react";
+import useSnackbarError from "../../../hooks/useSnackbarError";
 
 export default function SimpleAppBar() {
   const { setAuthToken } = useAuthToken();
+  const { profile, errorProfile } = useProfile();
+  const showErrorSnackbar = useSnackbarError();
+
+  useEffect(() => {
+    if(errorProfile) return showErrorSnackbar({ error: errorProfile?.message });  
+  }, [errorProfile, showErrorSnackbar]);
 
   const handleLogout = () => {
     setAuthToken(null);
@@ -17,7 +26,7 @@ export default function SimpleAppBar() {
         <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
           {/* Your existing content */}
           <Typography variant="h6" color="inherit" component="div">
-            Welcome To Simple Social Media
+            Hey {profile?.name}, Welcome To Simple Social Media
           </Typography>
 
           <Button

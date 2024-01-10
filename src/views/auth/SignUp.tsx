@@ -15,6 +15,8 @@ import useAuthToken from '../../hooks/auth/useAuthToken';
 import { SignUpParams, SignUpResponse } from '../../api/Common/types';
 import { useNavigate } from 'react-router-dom';
 import useRedirectIfTokenExists from '../../hooks/useRedirectIfTokenExists';
+import useProfile from '../../hooks/useProfile';
+import useSnackbarError from '../../hooks/useSnackbarError';
 
 
 export default function SignUp() {
@@ -22,12 +24,16 @@ export default function SignUp() {
   const api = useApi()
   const {setAuthToken} = useAuthToken()
   const navigate = useNavigate();
+  const {setProfile} = useProfile()
+  const showErrorSnackbar = useSnackbarError();
+  showErrorSnackbar({error: "helloError"})
 
   const { mutate } = useMutation(
     {
       mutationFn: (params: SignUpParams) => api.signUp(params),
       onSuccess: (data: SignUpResponse) => {
-        setAuthToken(data.token)
+        setAuthToken(data?.token)
+        setProfile(data?.user)
         navigate("/")
       }
     },

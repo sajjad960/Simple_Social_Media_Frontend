@@ -1,17 +1,12 @@
 import axios from "axios";
 import autoBind from "auto-bind";
-import { ConstructorProps, PostPutMethodProps } from "../Common/types";
+import { ConstructorProps, GetDeleteMethodProps, PostPutMethodProps } from "../Common/types";
 
 interface RequestProps {
   options: object;
   fullResponse: boolean;
 }
-interface GetDeleteMethodProps {
-  url: string;
-  params: object;
-  fullResponse: boolean;
-  others: object;
-}
+
 
 
 export default class ApiBase {

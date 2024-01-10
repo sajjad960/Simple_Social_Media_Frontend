@@ -15,17 +15,21 @@ import { useMutation } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/auth/useAuthToken";
 import { useNavigate } from "react-router-dom";
 import useRedirectIfTokenExists from "../../hooks/useRedirectIfTokenExists";
+import useProfile from "../../hooks/useProfile";
 
 export default function SignIn() {
   useRedirectIfTokenExists();
   const api = useApi();
   const { setAuthToken } = useAuthToken();
   const navigate = useNavigate();
+  const {setProfile} = useProfile()
+
 
   const { mutate } = useMutation({
     mutationFn: (params: SignInParams) => api.signIn(params),
     onSuccess: (data: SignInResponse) => {
-      setAuthToken(data.token);
+      setAuthToken(data?.token);
+      setProfile(data?.user)
       navigate("/");
     },
   });
