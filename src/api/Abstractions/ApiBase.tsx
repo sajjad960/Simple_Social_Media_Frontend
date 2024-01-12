@@ -69,6 +69,8 @@ export default class ApiBase {
   }
 
   async request({ options, fullResponse }: RequestProps) {
+    console.log(options);
+    
     const response = await this.axiosClient.request(options);
     if (fullResponse) return fullResponse;
     return response?.data;

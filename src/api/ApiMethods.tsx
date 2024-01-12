@@ -1,11 +1,19 @@
 import autoBind from "auto-bind";
 import ApiBase from "./Abstractions/ApiBase";
-import { ConstructorProps, GetDeleteMethodProps, PostPutMethodProps, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from "./Common/types";
-
+import {
+  ConstructorProps,
+  GetDeleteMethodProps,
+  PostFormData,
+  PostPutMethodProps,
+  SignInParams,
+  SignInResponse,
+  SignUpParams,
+  SignUpResponse,
+} from "./Common/types";
 
 interface ApiMethodsPros {
   signUp: (data: SignUpParams) => Promise<SignUpResponse>;
-  signIn: (data: SignInParams) => Promise<SignInResponse>
+  signIn: (data: SignInParams) => Promise<SignInResponse>;
 }
 
 export default class ApiMethods extends ApiBase implements ApiMethodsPros {
@@ -25,13 +33,13 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
   }
   async signIn(data: SignInParams) {
     const passingData: PostPutMethodProps = {
-        url: "/users/login",
-        data,
-        fullResponse: false,
-        others: undefined,
-      };
-      const resultData = await this.post(passingData);
-      return resultData;
+      url: "/users/login",
+      data,
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.post(passingData);
+    return resultData;
   }
   async userProfile() {
     const passingData: GetDeleteMethodProps = {
@@ -42,7 +50,17 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     };
 
     const resultData = await this.get(passingData);
-    return resultData
-
+    return resultData;
+  }
+  async CreatePost(data: PostFormData) {
+    const passingData: PostPutMethodProps = {
+      url: "/posts",
+      data,
+      fullResponse: false,
+      others: undefined,
+    };
+    console.log(data);
+    const resultData = await this.post(passingData);
+    return resultData;
   }
 }

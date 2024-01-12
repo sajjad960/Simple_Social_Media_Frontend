@@ -52,3 +52,8 @@ export type SignInResponse = {
   user: UserDataTypes
 
 };
+// Create Post Types
+export interface PostFormData {
+  text: FormDataEntryValue | null;
+  images:File[];
+}

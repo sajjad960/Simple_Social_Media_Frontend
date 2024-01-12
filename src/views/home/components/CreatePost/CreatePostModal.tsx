@@ -7,13 +7,16 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 import UploadImages from "./UploadImages";
+import { PostFormData } from "../../../../api/Common/types";
+import { useMutation } from "@tanstack/react-query";
+import useApi from "../../../../hooks/useApi";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400, 
+  width: 400,
   bgcolor: "#fff",
   border: "2px solid #000",
   boxShadow: 24,
@@ -21,12 +24,32 @@ const style = {
 };
 
 export default function CreatePostModal() {
+  const api = useApi();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [uploadedImages, setUploadedImages] = React.useState<string[]>([]);
-  const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<FileList[]>([]);
-  console.log(uploadedImages, uploadedImagesFiles)
+  const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<
+    File[]
+  >([]);
+
+  const {mutate} = useMutation({
+    mutationFn: (params: PostFormData) => api.CreatePost(params),
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+
+  const handleCreatePost = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    const bodyData: PostFormData = {
+      text: data.get("text"),
+      images: uploadedImagesFiles
+    };
+    mutate(bodyData)
+  };
 
   return (
     <div>
@@ -47,7 +70,7 @@ export default function CreatePostModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box sx={style} component="form" onSubmit={handleCreatePost}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Write Your Content
             </Typography>
@@ -56,16 +79,22 @@ export default function CreatePostModal() {
               fullWidth
               multiline
               maxRows={12}
+              label="Text"
+              name="text"
             />
             <Box sx={{ mt: 2 }}>
-              <UploadImages uploadedImages={uploadedImages} setUploadedImages={setUploadedImages} setUploadedImagesFiles={setUploadedImagesFiles} />
+              <UploadImages
+                uploadedImages={uploadedImages}
+                setUploadedImages={setUploadedImages}
+                setUploadedImagesFiles={setUploadedImagesFiles}
+              />
             </Box>
             <Box>
               <Button
                 variant="contained"
                 color="primary"
                 sx={{ mt: 2, mr: 3 }}
-                onClick={handleClose}
+                type="submit"
               >
                 Save
               </Button>
