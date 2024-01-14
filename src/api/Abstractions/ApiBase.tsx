@@ -12,13 +12,14 @@ interface RequestProps {
 export default class ApiBase {
   axiosClient;
 
-  constructor({ baseURL, commonHeaders, timeout = 4000 }: ConstructorProps) {
+  constructor({ baseURL,formData, commonHeaders, timeout = 4000 }: ConstructorProps) {
+    
     this.axiosClient = axios.create({
       baseURL,
       timeout,
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": formData ? "multipart/form-data" : "application/json",
         ...commonHeaders,
       },
     });

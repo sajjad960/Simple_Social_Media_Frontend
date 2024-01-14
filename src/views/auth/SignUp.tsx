@@ -16,17 +16,14 @@ import { SignUpParams, SignUpResponse } from '../../api/Common/types';
 import { useNavigate } from 'react-router-dom';
 import useRedirectIfTokenExists from '../../hooks/useRedirectIfTokenExists';
 import useProfile from '../../hooks/useProfile';
-import useSnackbarError from '../../hooks/useSnackbarError';
 
 
 export default function SignUp() {
   useRedirectIfTokenExists()
-  const api = useApi()
+  const api = useApi({formData: false})
   const {setAuthToken} = useAuthToken()
   const navigate = useNavigate();
   const {setProfile} = useProfile()
-  const showErrorSnackbar = useSnackbarError();
-  showErrorSnackbar({error: "helloError"})
 
   const { mutate } = useMutation(
     {

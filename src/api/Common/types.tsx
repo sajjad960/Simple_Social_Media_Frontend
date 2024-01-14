@@ -1,5 +1,6 @@
 export interface ConstructorProps {
   baseURL: string;
+  formData: boolean;
   commonHeaders: object;
   timeout: number;
 }
@@ -54,6 +55,6 @@ export type SignInResponse = {
 };
 // Create Post Types
 export interface PostFormData {
-  text: FormDataEntryValue | null;
-  images:File[];
+  text: string;
+  images: File[];
 }

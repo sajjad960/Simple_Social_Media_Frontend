@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { UserDataTypes } from "../api/Common/types";
 
 export default function useProfile() {
-  const api = useApi();
+  const api = useApi({formData: false});
   const { authToken } = useAuthToken();
   const queryClient = useQueryClient();
   

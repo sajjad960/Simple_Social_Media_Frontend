@@ -24,7 +24,7 @@ const style = {
 };
 
 export default function CreatePostModal() {
-  const api = useApi();
+  const api = useApi({formData: true});
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,7 +45,7 @@ export default function CreatePostModal() {
     const data = new FormData(event.currentTarget);
 
     const bodyData: PostFormData = {
-      text: data.get("text"),
+      text: String(data.get("text")),
       images: uploadedImagesFiles
     };
     mutate(bodyData)

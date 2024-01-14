@@ -11,6 +11,8 @@ import {
   SignUpResponse,
 } from "./Common/types";
 
+
+
 interface ApiMethodsPros {
   signUp: (data: SignUpParams) => Promise<SignUpResponse>;
   signIn: (data: SignInParams) => Promise<SignInResponse>;
@@ -53,9 +55,17 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     return resultData;
   }
   async CreatePost(data: PostFormData) {
+    const formData = new FormData();
+
+    // Append upload data
+    formData.append("text", data?.text);
+    data.images.forEach((image) => {
+      formData.append("images", image);
+    })
+
     const passingData: PostPutMethodProps = {
       url: "/posts",
-      data,
+      data: formData,
       fullResponse: false,
       others: undefined,
     };

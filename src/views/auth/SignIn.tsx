@@ -19,7 +19,7 @@ import useProfile from "../../hooks/useProfile";
 
 export default function SignIn() {
   useRedirectIfTokenExists();
-  const api = useApi();
+  const api = useApi({formData: false});
   const { setAuthToken } = useAuthToken();
   const navigate = useNavigate();
   const {setProfile} = useProfile()
