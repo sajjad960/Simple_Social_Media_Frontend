@@ -32,11 +32,20 @@ export default function CreatePostModal() {
   const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<
     File[]
   >([]);
+  const formRef = React.useRef<HTMLFormElement | null>();
+
 
   const {mutate} = useMutation({
     mutationFn: (params: PostFormData) => api.CreatePost(params),
     onSuccess: (data) => {
       console.log(data)
+
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+
+      setUploadedImages([])
+      setUploadedImagesFiles([])
     },
   })
 
@@ -70,7 +79,7 @@ export default function CreatePostModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style} component="form" onSubmit={handleCreatePost}>
+          <Box sx={style} component="form" ref={formRef} onSubmit={handleCreatePost}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Write Your Content
             </Typography>
