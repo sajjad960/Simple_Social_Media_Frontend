@@ -11,6 +11,7 @@ import { PostFormData } from "../../../../api/Common/types";
 import { useMutation } from "@tanstack/react-query";
 import useApi from "../../../../hooks/useApi";
 import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const style = {
   position: "absolute",
@@ -25,44 +26,50 @@ const style = {
 };
 
 export default function CreatePostModal() {
-  const api = useApi({formData: true});
+  const api = useApi({ formData: true });
+  const showSuccessMessage = useSnackbarSuccess();
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const showSuccessMessage = useSnackbarSuccess()
+
+  const [text, setText] = React.useState<string>("");
   const [uploadedImages, setUploadedImages] = React.useState<string[]>([]);
-  const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<
-    File[]
-  >([]);
+  const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<File[]>(
+    []
+  );
   const formRef = React.useRef<HTMLFormElement | null>();
 
+  const resetFormData = () => {
+    handleClose();
+    setUploadedImages([]);
+    setUploadedImagesFiles([]);
+    setText("");
+    
+     if (formRef.current) {
+      formRef.current.reset();
+    }
+  };
 
-  const {mutate} = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (params: PostFormData) => api.CreatePost(params),
     onSuccess: (data) => {
-      console.log(data)
+      console.log(data);
 
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-      setUploadedImages([])
-      setUploadedImagesFiles([])
-      showSuccessMessage({message: "Post Created Successfully"})
-      handleClose()
+      resetFormData();
+      showSuccessMessage({ message: "Post Created Successfully" });
     },
-  })
+  });
 
   const handleCreatePost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
 
     const bodyData: PostFormData = {
-      text: String(data.get("text")),
-      images: uploadedImagesFiles
+      text: text,
+      images: uploadedImagesFiles,
     };
-    mutate(bodyData)
+    mutate(bodyData);
   };
-
   return (
     <div>
       <Button variant="contained" onClick={handleOpen}>
@@ -82,7 +89,12 @@ export default function CreatePostModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style} component="form" ref={formRef} onSubmit={handleCreatePost}>
+          <Box
+            sx={style}
+            component="form"
+            ref={formRef}
+            onSubmit={handleCreatePost}
+          >
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Write Your Content
             </Typography>
@@ -92,6 +104,8 @@ export default function CreatePostModal() {
               multiline
               maxRows={12}
               label="Text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
               name="text"
             />
             <Box sx={{ mt: 2 }}>
@@ -102,19 +116,26 @@ export default function CreatePostModal() {
               />
             </Box>
             <Box>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2, mr: 3 }}
-                type="submit"
-              >
-                Save
-              </Button>
+              {isPending ? (
+                <Box sx={{ mt: 4 }}>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 2, mr: 3 }}
+                  type="submit"
+                >
+                  Save
+                </Button>
+              )}
+
               <Button
                 variant="outlined"
                 color="warning"
                 sx={{ mt: 2 }}
-                onClick={handleClose}
+                onClick={resetFormData}
               >
                 Cancle
               </Button>
