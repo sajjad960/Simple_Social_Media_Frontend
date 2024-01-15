@@ -10,6 +10,7 @@ import UploadImages from "./UploadImages";
 import { PostFormData } from "../../../../api/Common/types";
 import { useMutation } from "@tanstack/react-query";
 import useApi from "../../../../hooks/useApi";
+import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
 
 const style = {
   position: "absolute",
@@ -28,6 +29,7 @@ export default function CreatePostModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const showSuccessMessage = useSnackbarSuccess()
   const [uploadedImages, setUploadedImages] = React.useState<string[]>([]);
   const [uploadedImagesFiles, setUploadedImagesFiles] = React.useState<
     File[]
@@ -43,9 +45,10 @@ export default function CreatePostModal() {
       if (formRef.current) {
         formRef.current.reset();
       }
-
       setUploadedImages([])
       setUploadedImagesFiles([])
+      showSuccessMessage({message: "Post Created Successfully"})
+      handleClose()
     },
   })
 
