@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,7 +12,7 @@ import useApi from "../../hooks/useApi";
 import { SignInParams, SignInResponse } from "../../api/Common/types";
 import { useMutation } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/auth/useAuthToken";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useRedirectIfTokenExists from "../../hooks/useRedirectIfTokenExists";
 import useProfile from "../../hooks/useProfile";
 
@@ -92,12 +91,12 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="resetPassword" variant="body2">
+              <Link to="/resetPassword">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="signup" variant="body2">
+              <Link to="/signup">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

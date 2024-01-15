@@ -115,12 +115,12 @@ export default function CreatePostModal() {
                 setUploadedImagesFiles={setUploadedImagesFiles}
               />
             </Box>
-            <Box>
               {isPending ? (
-                <Box sx={{ mt: 4 }}>
+                <Box sx={{ mt: 4, }}>
                   <CircularProgress />
                 </Box>
               ) : (
+                <Box>
                 <Button
                   variant="contained"
                   color="primary"
@@ -129,9 +129,7 @@ export default function CreatePostModal() {
                 >
                   Save
                 </Button>
-              )}
-
-              <Button
+                <Button
                 variant="outlined"
                 color="warning"
                 sx={{ mt: 2 }}
@@ -140,6 +138,9 @@ export default function CreatePostModal() {
                 Cancle
               </Button>
             </Box>
+              )}
+
+              
           </Box>
         </Fade>
       </Modal>

@@ -3,12 +3,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link } from 'react-router-dom';
 
 export default function PasswordReset() {
     const [enableResetPassword, setenableResetPassword] = React.useState(false)
@@ -71,7 +71,7 @@ export default function PasswordReset() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href='/signin' variant="body2">
+              <Link to='/signin'>
                 Remember your password? Sign in
               </Link>
             </Grid>
@@ -104,7 +104,7 @@ export default function PasswordReset() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href='/signin' variant="body2">
+              <Link to='/signin'>
                 Remember your password? Sign in
               </Link>
             </Grid>
