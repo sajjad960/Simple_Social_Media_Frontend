@@ -9,7 +9,7 @@ import CommentSection from './CommentSection';
 export default function PostCard() {
   return (
     <Card sx={{ maxWidth: 345, transition: "none",  }}>
-      <CardActionArea>
+      <CardActionArea disableRipple>
         <CardMedia
           component="img"
           height="140"

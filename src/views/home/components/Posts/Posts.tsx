@@ -1,7 +1,16 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import PostCard from "./PostCard";
+import { useQuery } from "@tanstack/react-query";
+import { cacheKeys } from "../../../../api/CacheKeys";
+import useApi from "../../../../hooks/useApi";
 
 const Posts = () => {
+  const api = useApi({formData: false})
+  const {data} = useQuery({
+    queryKey: [cacheKeys.posts],
+    queryFn: api.getPosts
+  })
+  console.log(data);
   return (
     <Container sx={{ mt: 5 }}>
       <Typography variant="h4" component="h4">

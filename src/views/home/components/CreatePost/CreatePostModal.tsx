@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import UploadImages from "./UploadImages";
 import { PostFormData } from "../../../../api/Common/types";
 import { useMutation } from "@tanstack/react-query";
@@ -45,8 +45,8 @@ export default function CreatePostModal() {
     setUploadedImages([]);
     setUploadedImagesFiles([]);
     setText("");
-    
-     if (formRef.current) {
+
+    if (formRef.current) {
       formRef.current.reset();
     }
   };
@@ -72,9 +72,11 @@ export default function CreatePostModal() {
   };
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Create Post
-      </Button>
+      <Box>
+        <Button variant="contained" onClick={handleOpen}>
+          Create Post
+        </Button>
+      </Box>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -115,12 +117,12 @@ export default function CreatePostModal() {
                 setUploadedImagesFiles={setUploadedImagesFiles}
               />
             </Box>
-              {isPending ? (
-                <Box sx={{ mt: 4, }}>
-                  <CircularProgress />
-                </Box>
-              ) : (
-                <Box>
+            {isPending ? (
+              <Box sx={{ mt: 4 }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Box>
                 <Button
                   variant="contained"
                   color="primary"
@@ -130,17 +132,15 @@ export default function CreatePostModal() {
                   Save
                 </Button>
                 <Button
-                variant="outlined"
-                color="warning"
-                sx={{ mt: 2 }}
-                onClick={resetFormData}
-              >
-                Cancle
-              </Button>
-            </Box>
-              )}
-
-              
+                  variant="outlined"
+                  color="warning"
+                  sx={{ mt: 2 }}
+                  onClick={resetFormData}
+                >
+                  Cancle
+                </Button>
+              </Box>
+            )}
           </Box>
         </Fade>
       </Modal>

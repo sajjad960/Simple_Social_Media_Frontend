@@ -69,8 +69,17 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
       fullResponse: false,
       others: undefined,
     };
-    console.log(data);
     const resultData = await this.post(passingData);
+    return resultData;
+  }
+  async getPosts() {
+    const passingData: GetDeleteMethodProps = {
+      url: "/posts",
+      params: {},
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.get(passingData);
     return resultData;
   }
 }
