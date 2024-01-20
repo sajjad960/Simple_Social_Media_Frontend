@@ -3,26 +3,37 @@ import PostCard from "./PostCard";
 import { useQuery } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
 import useApi from "../../../../hooks/useApi";
+import { PostTypes } from "../../../../api/Common/types";
 
 const Posts = () => {
-  const api = useApi({formData: false})
-  const {data} = useQuery({
+  const api = useApi({ formData: false });
+  const { data, isLoading } = useQuery({
     queryKey: [cacheKeys.posts],
-    queryFn: api.getPosts
-  })
-  console.log(data);
+    queryFn: api.getPosts,
+  });
   return (
     <Container sx={{ mt: 5 }}>
       <Typography variant="h4" component="h4">
         All Posts
       </Typography>
 
+      {isLoading && <p>Loading...</p>}
+      {data && data.data.length === 0 && (
+        <Typography variant="h5" component="h5">
+          No Post Available....
+        </Typography>
+      )}
+
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <PostCard />
-          </Grid>
-         
+          {data &&
+            data?.data?.map((post: PostTypes, index: number) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <PostCard post={post} />
+                </Grid>
+              );
+            })}
         </Grid>
       </Box>
     </Container>

@@ -58,3 +58,12 @@ export interface PostFormData {
   text: string;
   images: File[];
 }
+
+export type PostTypes = {
+  id: number;
+  text: string;
+  images: string;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+};
