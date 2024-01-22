@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple Social Media
 
-Currently, two official plugins are available:
+-I am creating this app for learning purposes; basically, you can create posts with multiple images and text and also comment, react, and reply to your posts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Technology used
 
-## Expanding the ESLint configuration
+- Nodejs (version - v16.20.1)
+- React.js (version - 18.2.0) + Vite
+- Typescript
+- Material UI, TanStack Query
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installation and Run
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm i
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Then visit the `Local` link from the terminal, it should look like this `http://127.0.0.1:5173/`
+
+#### Feature Implemented
+1. Authentication, Authorization
+2. Create Posts With Multiple Images And Text.
+
+Note: I am still working with the project

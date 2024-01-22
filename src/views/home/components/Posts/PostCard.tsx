@@ -1,7 +1,9 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, ImageList, ImageListItem } from "@mui/material";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import CardActionArea from "@mui/material/CardActionArea";
 import Reactions from "./Reactions";
 import CommentSection from "./CommentSection";
 import { PostTypes, UserDataTypes } from "../../../../api/Common/types";
@@ -21,7 +23,6 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const images: string[] = JSON.parse(post.images);
   const data = queryClient.getQueryData<QueryDataTypes>([cacheKeys.profile]);
   const userId = data?.data?.id;
-  console.log(images, data?.data?.id);
 
   return (
     <Card sx={{ maxWidth: 400, transition: "none" }}>
