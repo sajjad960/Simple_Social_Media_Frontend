@@ -3,8 +3,8 @@
 Simple Social Media
 
 - I am creating this app for learning purposes; 
-  * basically, you and other users can create posts with multiple images and text and also comment, react, and reply to your posts .
-  * Also able view everyone posts.
+  * basically, you can create posts with multiple images and text, and also comment, react, and reply to your posts .
+  * Other users also able view,react,comment and reply to your posts.
 
 ### Technology used
 
