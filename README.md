@@ -1,6 +1,6 @@
 # Overview
 
-Simple Social Media
+Simple Social Media Frontend
 
 - I am creating this app for learning purposes; 
   * basically, you can create posts with multiple images and text, and also comment, react, and reply to your posts .
