@@ -26,4 +26,4 @@ Then visit the `Local` link from the terminal, it should look like this `http://
 1. Authentication, Authorization
 2. Create Posts With Multiple Images And Text.
 
-Note: I am still working with the project
+Note: I am still working with the project.

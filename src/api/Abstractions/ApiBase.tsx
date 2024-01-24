@@ -7,8 +7,6 @@ interface RequestProps {
   fullResponse: boolean;
 }
 
-
-
 export default class ApiBase {
   axiosClient;
 
@@ -32,11 +30,12 @@ export default class ApiBase {
         // }
 
         // const { message } = error;
-        // console.log(message, "this is an error");
-        const errorData = error.response?.data;
+        const errorData = error.response?.data ?? {};
+        console.log( "this is an error", error);
 
         if (error.response) {
           const statusCode = error.response.status;
+          console.log("error area");
           switch (statusCode) {
             case 400:
               errorData.message = "Bad Request: " + errorData.message;
