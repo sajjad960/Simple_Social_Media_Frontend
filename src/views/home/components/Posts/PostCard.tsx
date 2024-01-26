@@ -6,28 +6,25 @@ import ImageListItem from "@mui/material/ImageListItem";
 import CardActionArea from "@mui/material/CardActionArea";
 import Reactions from "./Reactions";
 import CommentSection from "./CommentSection";
-import { PostTypes, UserDataTypes } from "../../../../api/Common/types";
+import { PostTypes } from "../../../../api/Common/types";
 import { API_BASE_URL } from "../../../../utils";
-import { useQueryClient } from "@tanstack/react-query";
-import { cacheKeys } from "../../../../api/CacheKeys";
 
 interface PostCardProps {
   post: PostTypes;
 }
-interface QueryDataTypes {
-  data: UserDataTypes;
-}
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const queryClient = useQueryClient();
   const images: string[] = JSON.parse(post.images);
-  const data = queryClient.getQueryData<QueryDataTypes>([cacheKeys.profile]);
-  const userId = data?.data?.id;
+  const userId = post.user_id;
 
   return (
     <Card sx={{ maxWidth: 400, transition: "none" }}>
       <CardActionArea disableRipple>
-        <ImageList sx={{ width: 400, height: 300 }} cols={images.length} rowHeight={164}>
+        <ImageList
+          sx={{ width: 400, height: 300 }}
+          cols={images.length}
+          rowHeight={164}
+        >
           {images?.length > 0 &&
             images.map((imageName, index) => (
               <ImageListItem key={index}>
@@ -46,7 +43,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           image="/static/images/cards/contemplative-reptile.jpg"
           alt="green iguana"
         /> */}
-        <CardContent sx={{height: 60}}>
+        <CardContent sx={{ height: 60 }}>
           <Typography gutterBottom variant="h5" component="div">
             {post.text}
           </Typography>
