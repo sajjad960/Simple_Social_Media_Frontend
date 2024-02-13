@@ -33,6 +33,7 @@ export default function SignIn() {
     },
   });
 
+  console.log("check sing in ");
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

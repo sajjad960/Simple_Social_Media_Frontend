@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import useAuthToken from './auth/useAuthToken';
 
 const useRedirectIfTokenExists = () => {
-    const {authToken} = useAuthToken()
+    const {isExpired, authToken} = useAuthToken()
     const navigate = useNavigate()
 
   useEffect(() => {
-    if (authToken) {
+
+    if (authToken && !isExpired) {
       // Token exists, navigate to the home page or any other desired route
       navigate('/');
     }
-  }, [authToken, navigate]);
+  }, [authToken, isExpired, navigate]);
+
+
 };
 
 export default useRedirectIfTokenExists;

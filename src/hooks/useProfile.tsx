@@ -10,7 +10,7 @@ export default function useProfile() {
   const { authToken } = useAuthToken();
   const queryClient = useQueryClient();
   
-
+console.log("hi");
   const { data, isLoading, error, refetch, isRefetching, ...rest } = useQuery({
     queryKey: [cacheKeys.profile],
     queryFn: () => {
