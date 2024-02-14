@@ -27,3 +27,7 @@ Then visit the `Local` link from the terminal, it should look like this `http://
 2. Create Posts With Multiple Images And Text.
 
 Note: I am still working with the project.
+
+#### Demo Image Of DashBoard
+![Image Alt text](/src/assets/Demo/dashboardSimpleSocail.png)
+
