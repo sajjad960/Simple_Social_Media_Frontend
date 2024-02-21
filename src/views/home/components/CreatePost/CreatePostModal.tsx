@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import UploadImages from "./UploadImages";
 import { PostFormData } from "../../../../api/Common/types";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApi from "../../../../hooks/useApi";
 import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -27,7 +27,7 @@ const style = {
 };
 
 export default function CreatePostModal() {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const api = useApi({ formData: true });
   const showSuccessMessage = useSnackbarSuccess();
 
@@ -60,7 +60,11 @@ export default function CreatePostModal() {
 
       resetFormData();
       showSuccessMessage({ message: "Post Created Successfully" });
-      queryClient.invalidateQueries({ queryKey: [cacheKeys.posts] });
+      queryClient.invalidateQueries({
+        queryKey: [cacheKeys.posts],
+        exact: true,
+        refetchType: "active",
+      });
     },
   });
 
