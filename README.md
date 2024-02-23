@@ -27,7 +27,7 @@ Then visit the `Local` link from the terminal, it should look like this `http://
 
 1. Authentication, Authorization
 2. Create Posts With Multiple Images And Text.
-3. Restricted Post Depends On Image Content.
+3. Restricted Post Images Depends On Image Content.
    - If Any Uploaded Image Contains "Cat", Then The Post Images Will Be Restricted, After TensorFlow Finished The Image Processing.
 
 Note: I am still working on this project.
