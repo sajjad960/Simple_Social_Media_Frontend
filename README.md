@@ -29,5 +29,5 @@ Then visit the `Local` link from the terminal, it should look like this `http://
 Note: I am still working with the project.
 
 ## Demo Image Of DashBoard
-![Image Alt text](/src/assets/Demo/dashboardSimpleSocail.png)
+![Image Alt text](/src/assets/Demo/DashBoard.png)
 

@@ -8,6 +8,7 @@ import Reactions from "./Reactions";
 import CommentSection from "./CommentSection";
 import { PostTypes } from "../../../../api/Common/types";
 import { API_BASE_URL } from "../../../../utils";
+import { Box } from "@mui/material";
 
 interface PostCardProps {
   post: PostTypes;
@@ -25,7 +26,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           cols={images.length}
           rowHeight={164}
         >
-          {images?.length > 0 &&
+          {post.restricted ? (
+            <Box
+              height={200}
+              width={370}
+              fontSize={40}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              This image is restricted
+            </Box>
+          ) : (
+            images?.length > 0 &&
             images.map((imageName, index) => (
               <ImageListItem key={index}>
                 <img
@@ -35,7 +49,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                   loading="lazy"
                 />
               </ImageListItem>
-            ))}
+            ))
+          )}
         </ImageList>
         {/* <CardMedia
           component="img"

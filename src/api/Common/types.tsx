@@ -63,6 +63,7 @@ export type PostTypes = {
   id: number;
   text: string;
   images: string;
+  restricted: boolean,
   user_id: number;
   created_at: string;
   updated_at: string;

@@ -62,8 +62,6 @@ export default function CreatePostModal() {
       showSuccessMessage({ message: "Post Created Successfully" });
       queryClient.invalidateQueries({
         queryKey: [cacheKeys.posts],
-        exact: true,
-        refetchType: "active",
       });
     },
   });
