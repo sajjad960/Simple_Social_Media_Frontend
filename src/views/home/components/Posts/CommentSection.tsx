@@ -2,7 +2,11 @@ import { Box, Button } from "@mui/material";
 import CommentBox from "./CommentBox";
 import { useState } from "react";
 
-const CommentSection = () => {
+interface CommentSectionTypes {
+  postId: number;
+}
+
+const CommentSection: React.FC<CommentSectionTypes> = ({ postId }) => {
   const [openCommentSection, setopenCommentSection] = useState(false);
   return (
     <div>
@@ -15,7 +19,7 @@ const CommentSection = () => {
       >
         Comment
       </Button>
-      <Box>{openCommentSection && <CommentBox showReplies={true}/>}</Box>
+      <Box>{openCommentSection && <CommentBox showReplies={true} postId={postId} />}</Box>
     </div>
   );
 };

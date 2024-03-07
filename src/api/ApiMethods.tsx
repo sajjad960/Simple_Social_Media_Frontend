@@ -11,8 +11,6 @@ import {
   SignUpResponse,
 } from "./Common/types";
 
-
-
 interface ApiMethodsPros {
   signUp: (data: SignUpParams) => Promise<SignUpResponse>;
   signIn: (data: SignInParams) => Promise<SignInResponse>;
@@ -61,7 +59,7 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     formData.append("text", data?.text);
     data.images.forEach((image) => {
       formData.append("images", image);
-    })
+    });
 
     const passingData: PostPutMethodProps = {
       url: "/posts",
@@ -75,6 +73,17 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
   async getPosts() {
     const passingData: GetDeleteMethodProps = {
       url: "/posts",
+      params: {},
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.get(passingData);
+    return resultData;
+  }
+
+  async getComments(postId: number) {
+    const passingData: GetDeleteMethodProps = {
+      url: `/comments/${postId}`,
       params: {},
       fullResponse: false,
       others: undefined,

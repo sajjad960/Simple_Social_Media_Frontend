@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, LinearProgress, Typography } from "@mui/material";
 import PostCard from "./PostCard";
 import { useQuery } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
@@ -17,7 +17,7 @@ const Posts = () => {
         All Posts
       </Typography>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <LinearProgress sx={{marginTop: "5rem"}} />}
       {data && data.data.length === 0 && (
         <Typography variant="h5" component="h5">
           No Post Available....

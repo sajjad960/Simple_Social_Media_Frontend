@@ -19,7 +19,11 @@ const style = {
   p: 4,
 };
 
-export default function RepliesModal() {
+type RepliesPropsTypes = {
+  repliesCount: number | null;
+};
+
+export default function RepliesModal({ repliesCount }: RepliesPropsTypes) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +31,7 @@ export default function RepliesModal() {
   return (
     <div>
       <Button variant="soft" onClick={handleOpen}>
-        Reply (5)
+        Reply ({repliesCount ?? 0})
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -47,7 +51,7 @@ export default function RepliesModal() {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Reply the comment
             </Typography>
-            <CommentBox showReplies={false}/>
+            <CommentBox showReplies={false} postId={0} />
             <Button
               variant="outlined"
               color="warning"

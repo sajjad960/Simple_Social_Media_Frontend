@@ -12,7 +12,6 @@ export default function SimpleAppBar() {
   const { setAuthToken } = useAuthToken();
   const { profile, errorProfile } = useProfile();
   const showErrorSnackbar = useSnackbarError();
-console.log("app bar");
 
   useEffect(() => {
     if(errorProfile) return showErrorSnackbar({ error: errorProfile?.message });  
