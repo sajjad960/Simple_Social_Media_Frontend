@@ -25,7 +25,7 @@ type RepliesPropsTypes = {
 
 export default function RepliesModal({ repliesCount }: RepliesPropsTypes) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => repliesCount && setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (

@@ -42,6 +42,8 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
     queryFn: () => api.getComments(postId),
   });
   const comments: CommentTypes[] = data?.data;
+  const totalComments: number = data?.total;
+  console.log(data,totalComments);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (params: CommentsParams) => api.createComments(params),
@@ -68,7 +70,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
     };
     mutate(bodyData);
   };
-
+  const handleLoadMore = () => {};
   return (
     <>
       <form onSubmit={handleCreateComment}>
@@ -137,7 +139,13 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
       ) : (
         <Typography>No Comment Available</Typography>
       )}
-
+      <Box>
+        {totalComments > 3 && (
+          <Button variant="plain" onClick={handleLoadMore}>
+            Load More
+          </Button>
+        )}
+      </Box>
     </>
   );
 }
