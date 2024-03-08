@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/material/Typography";
-import CommentBox from "./CommentBox";
+import RepliesBox from "./RepliesBox";
 
 const style = {
   position: "absolute",
@@ -51,7 +51,7 @@ export default function RepliesModal({ repliesCount }: RepliesPropsTypes) {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Reply the comment
             </Typography>
-            <CommentBox showReplies={false} postId={0} />
+            <RepliesBox />
             <Button
               variant="outlined"
               color="warning"

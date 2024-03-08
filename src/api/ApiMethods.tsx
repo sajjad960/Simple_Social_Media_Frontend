@@ -1,6 +1,7 @@
 import autoBind from "auto-bind";
 import ApiBase from "./Abstractions/ApiBase";
 import {
+  CommentsParams,
   ConstructorProps,
   GetDeleteMethodProps,
   PostFormData,
@@ -89,6 +90,16 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
       others: undefined,
     };
     const resultData = await this.get(passingData);
+    return resultData;
+  }
+  async createComments(data: CommentsParams) {
+    const passingData: PostPutMethodProps = {
+      url: "/comments",
+      data,
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.post(passingData);
     return resultData;
   }
 }

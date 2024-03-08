@@ -53,7 +53,7 @@ export type SignInResponse = {
   user: UserDataTypes
 
 };
-// Create Post Types
+// Post Types
 export interface PostFormData {
   text: string;
   images: File[];
@@ -68,3 +68,9 @@ export type PostTypes = {
   created_at: string;
   updated_at: string;
 };
+
+// Comment Types
+export type CommentsParams = {
+  text: string,
+  post_id: number
+}

@@ -13,6 +13,7 @@ import useApi from "../../../../hooks/useApi";
 import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
 import CircularProgress from "@mui/material/CircularProgress";
 import { cacheKeys } from "../../../../api/CacheKeys";
+import useSnackbarError from "../../../../hooks/useSnackbarError";
 
 const style = {
   position: "absolute",
@@ -30,6 +31,7 @@ export default function CreatePostModal() {
   const queryClient = useQueryClient();
   const api = useApi({ formData: true });
   const showSuccessMessage = useSnackbarSuccess();
+  const showErrorMessage = useSnackbarError();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -64,6 +66,7 @@ export default function CreatePostModal() {
         queryKey: [cacheKeys.posts],
       });
     },
+    onError: () => showErrorMessage({error: "Something went rong, Please try again"})
   });
 
   const handleCreatePost = (event: React.FormEvent<HTMLFormElement>) => {
