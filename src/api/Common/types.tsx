@@ -83,3 +83,9 @@ export type CommentsParams = {
   text: string,
   post_id: number
 }
+
+// Reply Types
+export type ReplyParams = {
+  text: string,
+  comment_id: number
+}

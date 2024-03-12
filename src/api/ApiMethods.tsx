@@ -6,6 +6,7 @@ import {
   GetDeleteMethodProps,
   PostFormData,
   PostPutMethodProps,
+  ReplyParams,
   SignInParams,
   SignInResponse,
   SignUpParams,
@@ -95,6 +96,26 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
   async createComments(data: CommentsParams) {
     const passingData: PostPutMethodProps = {
       url: "/comments",
+      data,
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.post(passingData);
+    return resultData;
+  }
+  async getReplies(commentId: number) {
+    const passingData: GetDeleteMethodProps = {
+      url: `/reply/${commentId}`,
+      params: {},
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.get(passingData);
+    return resultData;
+  }
+  async createReply(data: ReplyParams) {
+    const passingData: PostPutMethodProps = {
+      url: "/reply",
       data,
       fullResponse: false,
       others: undefined,

@@ -130,7 +130,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
               </Box>
               <Box>
                 {showReplies && (
-                  <RepliesModal repliesCount={comment?.replies_count} />
+                  <RepliesModal repliesCount={comment?.replies_count} commentId={comment.id} />
                 )}
               </Box>
             </Box>
