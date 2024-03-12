@@ -13,15 +13,15 @@ import Reactions from "./Reactions";
 // import Reactions from "./Reactions";
 
 type RepliesBoxTypes = {
-  commentId: number,
-}
+  commentId: number;
+};
 type ReplyTypes = {
-  id: number,
-  comment_id: number,
-  user_id: number,
-  text: number,
-  replyReactions: ReactionTypes
-}
+  id: number;
+  comment_id: number;
+  user_id: number;
+  text: number;
+  replyReactions: ReactionTypes;
+};
 type ReplyQueryData = {
   status: string;
   results: number;
@@ -29,7 +29,7 @@ type ReplyQueryData = {
   total: number;
 };
 
-export default function RepliesBox({commentId}: RepliesBoxTypes) {
+export default function RepliesBox({ commentId }: RepliesBoxTypes) {
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
   const showSuccessMessage = useSnackbarSuccess();
@@ -72,7 +72,7 @@ export default function RepliesBox({commentId}: RepliesBoxTypes) {
 
   return (
     <>
-           <form onSubmit={handleCreateComment}>
+      <form onSubmit={handleCreateComment}>
         <FormControl>
           <Textarea
             placeholder="Type something here…"
@@ -131,7 +131,7 @@ export default function RepliesBox({commentId}: RepliesBoxTypes) {
           );
         })
       ) : (
-        <Typography>No Comment Available</Typography>
+        <Typography>No Reply Available</Typography>
       )}
       <Box>
         {totalReplies > 3 && (
