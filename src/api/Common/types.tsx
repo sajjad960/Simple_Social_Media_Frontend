@@ -59,12 +59,21 @@ export interface PostFormData {
   images: File[];
 }
 
+export type ReactionTypes = {
+  like: number | null,
+  love: number | null,
+  haha: number | null,
+  sad: number | null,
+  angry: number | null
+}
+
 export type PostTypes = {
   id: number;
   text: string;
   images: string;
   restricted: boolean,
   user_id: number;
+  postReactions: ReactionTypes,
   created_at: string;
   updated_at: string;
 };

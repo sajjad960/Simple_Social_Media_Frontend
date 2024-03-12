@@ -4,11 +4,13 @@ import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDiss
 import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box } from "@mui/material";
+import { ReactionTypes } from "../../../../api/Common/types";
 
 type ReactionProps = {
-  size: number
-}
-const Reactions = ({size}: ReactionProps) => {
+  size: number;
+  reactions: ReactionTypes;
+};
+const Reactions = ({ size, reactions }: ReactionProps) => {
   return (
     <div>
       <Box
@@ -19,37 +21,36 @@ const Reactions = ({size}: ReactionProps) => {
           alignItems: "center",
         }}
       >
-        <Box sx={{mr: 2}}>
+        <Box sx={{ mr: 2, cursor: "pointer" }}>
           <ThumbUpIcon sx={{ fontSize: size }} />
           <p style={{ fontSize: 20, fontWeight: "bold", color: "#3f51b5" }}>
-            0
+            {reactions?.like ?? 0}
           </p>
         </Box>
-        <Box sx={{mr: 2}}>
-        <EmojiEmotionsIcon sx={{ fontSize: size }} />
+        <Box sx={{ mr: 2, cursor: "pointer" }}>
+          <EmojiEmotionsIcon sx={{ fontSize: size }} />
           <p style={{ fontSize: 20, fontWeight: "bold", color: "#3f51b5" }}>
-            0
+            {reactions?.haha ?? 0}
           </p>
         </Box>
-        <Box sx={{mr: 2}}>
-        <FavoriteIcon sx={{ fontSize: size }} />
+        <Box sx={{ mr: 2, cursor: "pointer" }}>
+          <FavoriteIcon sx={{ fontSize: size }} />
           <p style={{ fontSize: 20, fontWeight: "bold", color: "#3f51b5" }}>
-            0
+            {reactions?.love ?? 0}
           </p>
         </Box>
-        <Box sx={{mr: 2}}>
-        <SentimentVeryDissatisfiedIcon sx={{ fontSize: size }} />
+        <Box sx={{ mr: 2, cursor: "pointer" }}>
+          <SentimentVeryDissatisfiedIcon sx={{ fontSize: size }} />
           <p style={{ fontSize: 20, fontWeight: "bold", color: "#3f51b5" }}>
-            0
+            {reactions?.sad ?? 0}
           </p>
         </Box>
-        <Box sx={{mr: 2}}>
-        <FaceRetouchingNaturalIcon sx={{ fontSize: size }} />
+        <Box sx={{ mr: 2, cursor: "pointer" }}>
+          <FaceRetouchingNaturalIcon sx={{ fontSize: size }} />
           <p style={{ fontSize: 20, fontWeight: "bold", color: "#3f51b5" }}>
-            0
+            {reactions?.angry ?? 0}
           </p>
         </Box>
-        
       </Box>
     </div>
   );

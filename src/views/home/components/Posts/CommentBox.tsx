@@ -8,7 +8,7 @@ import RepliesModal from "./RepliesModal";
 import useApi from "../../../../hooks/useApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
-import { CommentsParams } from "../../../../api/Common/types";
+import { CommentsParams, ReactionTypes } from "../../../../api/Common/types";
 import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
 import { useState } from "react";
 
@@ -22,6 +22,7 @@ type CommentTypes = {
   post_id: number;
   text: string;
   replies_count: number | null;
+  commentReactions: ReactionTypes,
 };
 
 type CommentsQueryData = {
@@ -43,7 +44,6 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
   });
   const comments: CommentTypes[] = data?.data;
   const totalComments: number = data?.total;
-  console.log(data,totalComments);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (params: CommentsParams) => api.createComments(params),
@@ -54,7 +54,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
       queryClient.setQueryData(
         [cacheKeys.comments, postId],
         (prevData: CommentsQueryData) => {
-          prevData.data.unshift(data.comment);
+          prevData.data.unshift(data?.comment);
           return prevData;
         }
       );
@@ -126,7 +126,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
                   sajjad
                 </Typography>
                 <Typography>{comment.text}</Typography>
-                <Reactions size={20} />
+                <Reactions size={20} reactions={comment?.commentReactions} />
               </Box>
               <Box>
                 {showReplies && (

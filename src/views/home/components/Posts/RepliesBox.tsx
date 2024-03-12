@@ -3,7 +3,7 @@ import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import { Typography } from "@mui/material";
-import Reactions from "./Reactions";
+// import Reactions from "./Reactions";
 
 // type CommentBoxPros = {
 //   showReplies: boolean,
@@ -40,7 +40,7 @@ export default function RepliesBox() {
             Sajjad
           </Typography>
           <Typography>new Comment ,ksjdfksd lsdjflsd lkjskdlfkl</Typography>
-          <Reactions size={20}/>
+          {/* <Reactions size={20}/> */}
         </Box>
       </Box>
     </>

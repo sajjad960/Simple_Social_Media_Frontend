@@ -17,7 +17,8 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const images: string[] = JSON.parse(post.images);
   const userId = post.user_id;
-  const postId = post.id
+  const postId = post.id;
+  const reactions = post.postReactions;
 
   return (
     <Card sx={{ maxWidth: 400, transition: "none" }}>
@@ -65,7 +66,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Reactions size={40} />
+      <Reactions size={40} reactions={reactions}/>
       <CommentSection postId={postId}/>
     </Card>
   );
