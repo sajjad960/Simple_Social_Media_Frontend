@@ -17,7 +17,7 @@ type CommentBoxPros = {
   postId: number;
 };
 
-type CommentTypes = {
+export type CommentTypes = {
   id: number;
   post_id: number;
   text: string;
@@ -25,7 +25,7 @@ type CommentTypes = {
   commentReactions: ReactionTypes,
 };
 
-type CommentsQueryData = {
+export type CommentsQueryData = {
   status: string;
   results: number;
   data: CommentTypes[];
@@ -130,7 +130,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
               </Box>
               <Box>
                 {showReplies && (
-                  <RepliesModal repliesCount={comment?.replies_count} commentId={comment.id} />
+                  <RepliesModal repliesCount={comment?.replies_count} comment={comment} />
                 )}
               </Box>
             </Box>

@@ -6,6 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/material/Typography";
 import RepliesBox from "./RepliesBox";
+import { CommentTypes } from "./CommentBox";
 
 const style = {
   position: "absolute",
@@ -21,10 +22,10 @@ const style = {
 
 type RepliesPropsTypes = {
   repliesCount: number | null;
-  commentId: number
+  comment: CommentTypes
 };
 
-export default function RepliesModal({ repliesCount, commentId }: RepliesPropsTypes) {
+export default function RepliesModal({ repliesCount, comment }: RepliesPropsTypes) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,7 +53,7 @@ export default function RepliesModal({ repliesCount, commentId }: RepliesPropsTy
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Reply the comment
             </Typography>
-            <RepliesBox commentId={commentId}/>
+            <RepliesBox comment={comment}/>
             <Button
               variant="outlined"
               color="warning"

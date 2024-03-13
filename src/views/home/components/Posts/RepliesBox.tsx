@@ -10,10 +10,10 @@ import { useState } from "react";
 import { cacheKeys } from "../../../../api/CacheKeys";
 import { ReactionTypes, ReplyParams } from "../../../../api/Common/types";
 import Reactions from "./Reactions";
-// import Reactions from "./Reactions";
+import { CommentTypes } from "./CommentBox";
 
 type RepliesBoxTypes = {
-  commentId: number;
+  comment: CommentTypes;
 };
 type ReplyTypes = {
   id: number;
@@ -29,15 +29,17 @@ type ReplyQueryData = {
   total: number;
 };
 
-export default function RepliesBox({ commentId }: RepliesBoxTypes) {
+
+export default function RepliesBox({ comment }: RepliesBoxTypes) {
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
   const showSuccessMessage = useSnackbarSuccess();
   const [text, setText] = useState<string>("");
+  const {id, post_id} = comment;
 
   const { data, isLoading, error } = useQuery({
-    queryKey: [cacheKeys.replies, commentId],
-    queryFn: () => api.getReplies(commentId),
+    queryKey: [cacheKeys.replies, id],
+    queryFn: () => api.getReplies(id),
   });
   const replies: ReplyTypes[] = data?.data;
   const totalReplies: number = data?.total;
@@ -49,12 +51,15 @@ export default function RepliesBox({ commentId }: RepliesBoxTypes) {
     },
     onSettled: (data) => {
       queryClient.setQueryData(
-        [cacheKeys.replies, commentId],
+        [cacheKeys.replies, id],
         (prevData: ReplyQueryData) => {
           prevData.data.unshift(data?.reply);
           return prevData;
         }
       );
+      queryClient.invalidateQueries({
+        queryKey: [cacheKeys.comments, post_id],
+      });
     },
   });
 
@@ -63,7 +68,7 @@ export default function RepliesBox({ commentId }: RepliesBoxTypes) {
 
     const bodyData: ReplyParams = {
       text: text,
-      comment_id: commentId,
+      comment_id: id,
     };
     mutate(bodyData);
   };
