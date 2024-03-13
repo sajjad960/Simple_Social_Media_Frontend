@@ -59,14 +59,6 @@ export interface PostFormData {
   images: File[];
 }
 
-export type ReactionTypes = {
-  like: number | null,
-  love: number | null,
-  haha: number | null,
-  sad: number | null,
-  angry: number | null
-}
-
 export type PostTypes = {
   id: number;
   text: string;
@@ -88,4 +80,18 @@ export type CommentsParams = {
 export type ReplyParams = {
   text: string,
   comment_id: number
+}
+// Reaction Types
+export type ReactionTypes = {
+  like: number | null,
+  love: number | null,
+  haha: number | null,
+  sad: number | null,
+  angry: number | null
+}
+
+export type ReactionParams = {
+  reactName: string,
+  type: string,
+  id: number
 }

@@ -56,7 +56,7 @@ export default function CreatePostModal() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (params: PostFormData) => api.CreatePost(params),
+    mutationFn: (params: PostFormData) => api.createPost(params),
     onSuccess: (data) => {
       console.log(data);
 

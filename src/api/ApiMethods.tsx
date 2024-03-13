@@ -6,6 +6,7 @@ import {
   GetDeleteMethodProps,
   PostFormData,
   PostPutMethodProps,
+  ReactionParams,
   ReplyParams,
   SignInParams,
   SignInResponse,
@@ -54,7 +55,7 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     const resultData = await this.get(passingData);
     return resultData;
   }
-  async CreatePost(data: PostFormData) {
+  async createPost(data: PostFormData) {
     const formData = new FormData();
 
     // Append upload data
@@ -116,6 +117,16 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
   async createReply(data: ReplyParams) {
     const passingData: PostPutMethodProps = {
       url: "/reply",
+      data,
+      fullResponse: false,
+      others: undefined,
+    };
+    const resultData = await this.post(passingData);
+    return resultData;
+  }
+  async createIncrementReact(data: ReactionParams) {
+    const passingData: PostPutMethodProps = {
+      url: "/counter",
       data,
       fullResponse: false,
       others: undefined,
