@@ -47,10 +47,8 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (params: CommentsParams) => api.createComments(params),
-    onSuccess: () => {
+    onSuccess: (data) => {
       showSuccessMessage({ message: "Comment Added" });
-    },
-    onSettled: (data) => {
       queryClient.setQueryData(
         [cacheKeys.comments, postId],
         (prevData: CommentsQueryData) => {
@@ -58,7 +56,9 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
           return prevData;
         }
       );
+      setText("")
     },
+
   });
 
   const handleCreateComment = (event: React.FormEvent<HTMLFormElement>) => {
@@ -79,6 +79,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
             placeholder="Type something here…"
             minRows={1}
             onChange={(e) => setText(e.target.value)}
+            value={text}
             endDecorator={
               <Box
                 sx={{

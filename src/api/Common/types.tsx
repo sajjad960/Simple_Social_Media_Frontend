@@ -87,7 +87,8 @@ export type ReactionTypes = {
   love: number | null,
   haha: number | null,
   sad: number | null,
-  angry: number | null
+  angry: number | null,
+  [key: string]: number | null
 }
 
 export type ReactionParams = {
