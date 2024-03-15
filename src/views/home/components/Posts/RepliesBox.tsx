@@ -46,20 +46,23 @@ export default function RepliesBox({ comment }: RepliesBoxTypes) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (params: ReplyParams) => api.createReply(params),
-    onSuccess: () => {
+    onSuccess: (data) => {
       showSuccessMessage({ message: "Comment Added" });
-    },
-    onSettled: (data) => {
       queryClient.setQueryData(
         [cacheKeys.replies, id],
         (prevData: ReplyQueryData) => {
-          prevData.data.unshift(data?.reply);
+          const updatedComment = {
+            ...data?.reply,
+            replyReactions: null
+          }
+          prevData.data.unshift(updatedComment);
           return prevData;
         }
       );
       queryClient.invalidateQueries({
         queryKey: [cacheKeys.comments, post_id],
       });
+      setText("")
     },
   });
 
@@ -83,6 +86,7 @@ export default function RepliesBox({ comment }: RepliesBoxTypes) {
             placeholder="Type something here…"
             minRows={1}
             onChange={(e) => setText(e.target.value)}
+            value={text}
             endDecorator={
               <Box
                 sx={{
@@ -130,7 +134,7 @@ export default function RepliesBox({ comment }: RepliesBoxTypes) {
                   sajjad
                 </Typography>
                 <Typography>{reply.text}</Typography>
-                <Reactions size={20} reactions={reply?.replyReactions} type={"reply"} id={reply?.id} />
+                <Reactions size={20} reactions={reply?.replyReactions} type={"reply"} id={reply?.id}  queryStateHelperId={id}/>
               </Box>
             </Box>
           );

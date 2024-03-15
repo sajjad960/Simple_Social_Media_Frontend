@@ -19,49 +19,65 @@ type ReactionProps = {
   reactions: ReactionTypes;
   type: string;
   id: number;
+  queryStateHelperId: number | null;
 };
 
 type PostDataType = {
   data: PostTypes[];
 };
-const Reactions = ({ size, reactions, type, id }: ReactionProps) => {
+type ReactionData = {
+  reaction: ReactionTypes;
+};
+const Reactions = ({
+  size,
+  reactions,
+  type,
+  id,
+  queryStateHelperId,
+}: ReactionProps) => {
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
   const [reactionName, setreactionName] = useState<string>("");
-
+  
   const { mutate } = useMutation({
     mutationFn: (params: ReactionParams) => api.createIncrementReact(params),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: (data: ReactionData) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cachekeysName: any =
+        (type === "post" && [cacheKeys.posts]) ||
+        (type === "comment" && [cacheKeys.comments, queryStateHelperId]) ||
+        (type === "reply" && [cacheKeys.replies, queryStateHelperId]);
 
-      queryClient.setQueryData([cacheKeys.posts], (prevData: PostDataType) => {
+      queryClient.setQueryData(cachekeysName, (prevData: PostDataType) => {
         console.log(prevData);
-        const newUpdatedData = prevData.data.map((post: PostTypes) => {
-          if (post.id === id) {
-            const postReactions = post.postReactions;
-            // If No Reaction Exist
-            if (postReactions === null) {
-              const newPostWithReaction = {
-                ...post,
-                postReactions: data.reaction
+        const newUpdatedData = prevData.data.map((item: PostTypes) => {
+          if (item.id === id) {
+            const reactionsFieldName = `${type}Reactions`;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const reactions: any = item[reactionsFieldName];
+
+            // If No Reactions Exist
+            if (reactions === null) {
+              const newItemWithReactions = {
+                ...item,
+                [reactionsFieldName]: data.reaction,
               };
-              return newPostWithReaction
+              return newItemWithReactions;
             }
-            // If Reaction Exist, Need To Add Count
-            if (postReactions[reactionName] !== null) {
-              postReactions[reactionName] = postReactions[reactionName]! + 1;
+
+            // If Reactions Exist, Need To Add Count
+            if (reactions[reactionName] !== null) {
+              reactions[reactionName] = reactions[reactionName]! + 1;
             } else {
-              postReactions[reactionName] = 1;
+              reactions[reactionName] = 1;
             }
-            return post;
           }
-          // Other Posts Just Return
-          return post;
+          return item;
         });
-        console.log("prevdata", newUpdatedData);
+
         return {
           ...prevData,
-          data: newUpdatedData
+          data: newUpdatedData,
         };
       });
     },

@@ -66,7 +66,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Reactions size={40} reactions={reactions} type={"post"} id={postId}/>
+      <Reactions size={40} reactions={reactions} type={"post"} id={postId} queryStateHelperId={null} />
       <CommentSection postId={postId}/>
     </Card>
   );

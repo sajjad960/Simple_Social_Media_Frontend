@@ -52,7 +52,11 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
       queryClient.setQueryData(
         [cacheKeys.comments, postId],
         (prevData: CommentsQueryData) => {
-          prevData.data.unshift(data?.comment);
+          const updatedComment = {
+            ...data?.comment,
+            commentReactions: null
+          }
+          prevData.data.unshift(updatedComment);
           return prevData;
         }
       );
@@ -127,7 +131,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
                   sajjad
                 </Typography>
                 <Typography>{comment.text}</Typography>
-                <Reactions size={20} reactions={comment?.commentReactions} type={"comment"} id={comment?.id} />
+                <Reactions size={20} reactions={comment?.commentReactions} type={"comment"} id={comment?.id} queryStateHelperId={postId}/>
               </Box>
               <Box>
                 {showReplies && (

@@ -68,6 +68,8 @@ export type PostTypes = {
   postReactions: ReactionTypes,
   created_at: string;
   updated_at: string;
+  [key: string]: string | number | boolean | ReactionTypes
+
 };
 
 // Comment Types
