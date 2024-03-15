@@ -38,7 +38,7 @@ const Reactions = ({
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
   const [reactionName, setreactionName] = useState<string>("");
-  
+
   const { mutate } = useMutation({
     mutationFn: (params: ReactionParams) => api.createIncrementReact(params),
     onSuccess: (data: ReactionData) => {
@@ -49,7 +49,6 @@ const Reactions = ({
         (type === "reply" && [cacheKeys.replies, queryStateHelperId]);
 
       queryClient.setQueryData(cachekeysName, (prevData: PostDataType) => {
-        console.log(prevData);
         const newUpdatedData = prevData.data.map((item: PostTypes) => {
           if (item.id === id) {
             const reactionsFieldName = `${type}Reactions`;
