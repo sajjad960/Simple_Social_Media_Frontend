@@ -13,6 +13,7 @@ import {
   SignUpParams,
   SignUpResponse,
 } from "./Common/types";
+import { PostFilterTypes } from "../views/home/components/Posts/Posts";
 
 interface ApiMethodsPros {
   signUp: (data: SignUpParams) => Promise<SignUpResponse>;
@@ -73,10 +74,10 @@ export default class ApiMethods extends ApiBase implements ApiMethodsPros {
     const resultData = await this.post(passingData);
     return resultData;
   }
-  async getPosts() {
+  async getPosts(filters: PostFilterTypes) {
     const passingData: GetDeleteMethodProps = {
       url: "/posts",
-      params: {},
+      params: filters,
       fullResponse: false,
       others: undefined,
     };

@@ -1,23 +1,56 @@
-import { Box, Container, Grid, LinearProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import PostCard from "./PostCard";
 import { useQuery } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
 import useApi from "../../../../hooks/useApi";
 import { PostTypes } from "../../../../api/Common/types";
+import { useState } from "react";
+import CustomPagination from "../Pagination";
+
+export type PostFilterTypes = {
+  page: number;
+};
 
 const Posts = () => {
   const api = useApi({ formData: false });
-  const { data, isLoading } = useQuery({
-    queryKey: [cacheKeys.posts],
-    queryFn: api.getPosts,
+  const [filters, setFilters] = useState<PostFilterTypes>({
+    page: 1,
   });
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: [cacheKeys.posts],
+    queryFn: () => api.getPosts(filters),
+  });
+
+  const pageSize = 10;
+  const totalItems = data?.total || 0;
+  const totalPages = Math.ceil(totalItems / pageSize);
+
+  const handlePageChange = async (newPage: number) => {
+    console.log(newPage);
+
+    await setFilters((prevFilters) => {
+      const updatedFilters = {
+        ...prevFilters,
+        page: newPage,
+      };
+      return updatedFilters;
+    });
+    refetch(); // Call refetch after updating filters
+  };
   return (
     <Container sx={{ mt: 5 }}>
       <Typography variant="h4" component="h4">
         All Posts
       </Typography>
 
-      {isLoading && <LinearProgress sx={{marginTop: "5rem"}} />}
+      {isLoading && <LinearProgress sx={{ marginTop: "5rem" }} />}
       {data && data.data.length === 0 && (
         <Typography variant="h5" component="h5">
           No Post Available....
@@ -36,6 +69,13 @@ const Posts = () => {
             })}
         </Grid>
       </Box>
+      {data && (
+        <CustomPagination
+          currentPage={filters.page}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </Container>
   );
 };
