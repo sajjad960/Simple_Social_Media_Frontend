@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import PostCard from "./PostCard";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
 import useApi from "../../../../hooks/useApi";
 import { PostTypes } from "../../../../api/Common/types";
@@ -24,16 +24,16 @@ const Posts = () => {
   });
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: [cacheKeys.posts],
+    queryKey: [cacheKeys.posts, filters.page],
     queryFn: () => api.getPosts(filters),
+    placeholderData: keepPreviousData,
   });
 
-  const pageSize = 10;
+  const pageSize = 9;
   const totalItems = data?.total || 0;
   const totalPages = Math.ceil(totalItems / pageSize);
 
   const handlePageChange = async (newPage: number) => {
-    console.log(newPage);
 
     await setFilters((prevFilters) => {
       const updatedFilters = {
@@ -63,7 +63,7 @@ const Posts = () => {
             data?.data?.map((post: PostTypes, index: number) => {
               return (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                  <PostCard post={post} />
+                  <PostCard post={post} pageNumber={filters.page} />
                 </Grid>
               );
             })}

@@ -134,7 +134,7 @@ export default function RepliesBox({ comment }: RepliesBoxTypes) {
                   sajjad
                 </Typography>
                 <Typography>{reply.text}</Typography>
-                <Reactions size={20} reactions={reply?.replyReactions} type={"reply"} id={reply?.id}  queryStateHelperId={id}/>
+                <Reactions size={20} reactions={reply?.replyReactions} type={"reply"} id={reply?.id}  queryStateHelperId={id} pageNumber={null}/>
               </Box>
             </Box>
           );

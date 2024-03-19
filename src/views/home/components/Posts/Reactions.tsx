@@ -20,6 +20,7 @@ type ReactionProps = {
   type: string;
   id: number;
   queryStateHelperId: number | null;
+  pageNumber: number | null;
 };
 
 type PostDataType = {
@@ -34,6 +35,7 @@ const Reactions = ({
   type,
   id,
   queryStateHelperId,
+  pageNumber,
 }: ReactionProps) => {
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
@@ -44,7 +46,7 @@ const Reactions = ({
     onSuccess: (data: ReactionData) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cachekeysName: any =
-        (type === "post" && [cacheKeys.posts]) ||
+        (type === "post" && [cacheKeys.posts, pageNumber]) ||
         (type === "comment" && [cacheKeys.comments, queryStateHelperId]) ||
         (type === "reply" && [cacheKeys.replies, queryStateHelperId]);
 

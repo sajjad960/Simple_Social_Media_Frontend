@@ -131,7 +131,7 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
                   sajjad
                 </Typography>
                 <Typography>{comment.text}</Typography>
-                <Reactions size={20} reactions={comment?.commentReactions} type={"comment"} id={comment?.id} queryStateHelperId={postId}/>
+                <Reactions size={20} reactions={comment?.commentReactions} type={"comment"} id={comment?.id} queryStateHelperId={postId} pageNumber={null}/>
               </Box>
               <Box>
                 {showReplies && (

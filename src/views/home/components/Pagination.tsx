@@ -8,8 +8,7 @@ interface CustomPaginationProps {
 }
 
 function CustomPagination({ currentPage, totalPages, onPageChange }: CustomPaginationProps) {
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log("i amr rendering");
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     onPageChange(value);
   };
 

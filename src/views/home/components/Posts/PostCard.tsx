@@ -12,9 +12,10 @@ import { Box } from "@mui/material";
 
 interface PostCardProps {
   post: PostTypes;
+  pageNumber: number
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard: React.FC<PostCardProps> = ({ post,pageNumber }) => {
   const images: string[] = JSON.parse(post.images);
   const userId = post.user_id;
   const postId = post.id;
@@ -66,7 +67,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Reactions size={40} reactions={reactions} type={"post"} id={postId} queryStateHelperId={null} />
+      <Reactions size={40} reactions={reactions} type={"post"} id={postId} queryStateHelperId={null} pageNumber={pageNumber} />
       <CommentSection postId={postId}/>
     </Card>
   );
