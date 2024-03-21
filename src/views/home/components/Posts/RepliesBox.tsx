@@ -15,12 +15,17 @@ import { CommentTypes } from "./CommentBox";
 type RepliesBoxTypes = {
   comment: CommentTypes;
 };
+type RepliesUserTypes = {
+  id: number,
+  name: string
+}
 type ReplyTypes = {
   id: number;
   comment_id: number;
   user_id: number;
   text: number;
   replyReactions: ReactionTypes;
+  userDetailsReplies: RepliesUserTypes;
 };
 type ReplyQueryData = {
   status: string;
@@ -131,7 +136,7 @@ export default function RepliesBox({ comment }: RepliesBoxTypes) {
             >
               <Box sx={{ width: "10rem" }}>
                 <Typography variant="h5" component="h5">
-                  sajjad
+                  {reply.userDetailsReplies.name}
                 </Typography>
                 <Typography>{reply.text}</Typography>
                 <Reactions size={20} reactions={reply?.replyReactions} type={"reply"} id={reply?.id}  queryStateHelperId={id} pageNumber={null}/>

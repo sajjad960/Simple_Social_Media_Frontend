@@ -75,7 +75,8 @@ export type PostTypes = {
 // Comment Types
 export type CommentsParams = {
   text: string,
-  post_id: number
+  post_id: number,
+  user_id: number
 }
 
 // Reply Types

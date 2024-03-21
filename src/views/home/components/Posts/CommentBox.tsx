@@ -8,7 +8,11 @@ import RepliesModal from "./RepliesModal";
 import useApi from "../../../../hooks/useApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { cacheKeys } from "../../../../api/CacheKeys";
-import { CommentsParams, ReactionTypes } from "../../../../api/Common/types";
+import {
+  CommentsParams,
+  ReactionTypes,
+  UserDataTypes,
+} from "../../../../api/Common/types";
 import useSnackbarSuccess from "../../../../hooks/useSnackbarSuccess";
 import { useState } from "react";
 
@@ -16,13 +20,18 @@ type CommentBoxPros = {
   showReplies: boolean;
   postId: number;
 };
+type CommentUserTypes = {
+  id: number,
+  name: string
+}
 
 export type CommentTypes = {
   id: number;
   post_id: number;
   text: string;
   replies_count: number | null;
-  commentReactions: ReactionTypes,
+  commentReactions: ReactionTypes;
+  userDetailsComment: CommentUserTypes
 };
 
 export type CommentsQueryData = {
@@ -32,11 +41,20 @@ export type CommentsQueryData = {
   total: number;
 };
 
+type QueryUserDataTypes = {
+  data: UserDataTypes;
+  status: string;
+};
+
 export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
   const api = useApi({ formData: false });
   const queryClient = useQueryClient();
   const showSuccessMessage = useSnackbarSuccess();
   const [text, setText] = useState<string>("");
+  const userData: QueryUserDataTypes | undefined = queryClient.getQueryData([
+    cacheKeys.profile,
+  ]);
+  const userId = userData?.data?.id;
 
   const { data, isLoading, error } = useQuery({
     queryKey: [cacheKeys.comments, postId],
@@ -54,25 +72,28 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
         (prevData: CommentsQueryData) => {
           const updatedComment = {
             ...data?.comment,
-            commentReactions: null
-          }
+            commentReactions: null,
+          };
           prevData.data.unshift(updatedComment);
           return prevData;
         }
       );
-      setText("")
+      setText("");
     },
-
   });
 
   const handleCreateComment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const bodyData: CommentsParams = {
-      text: text,
-      post_id: postId,
-    };
-    mutate(bodyData);
+    if (userId) {
+      const bodyData: CommentsParams = {
+        text: text,
+        post_id: postId,
+        user_id: userData?.data?.id,
+      };
+      mutate(bodyData);
+    }
+
   };
   const handleLoadMore = () => {};
   return (
@@ -128,14 +149,24 @@ export default function CommentBox({ showReplies, postId }: CommentBoxPros) {
             >
               <Box sx={{ width: "10rem" }}>
                 <Typography variant="h5" component="h5">
-                  sajjad
+                  {comment.userDetailsComment.name}
                 </Typography>
                 <Typography>{comment.text}</Typography>
-                <Reactions size={20} reactions={comment?.commentReactions} type={"comment"} id={comment?.id} queryStateHelperId={postId} pageNumber={null}/>
+                <Reactions
+                  size={20}
+                  reactions={comment?.commentReactions}
+                  type={"comment"}
+                  id={comment?.id}
+                  queryStateHelperId={postId}
+                  pageNumber={null}
+                />
               </Box>
               <Box>
                 {showReplies && (
-                  <RepliesModal repliesCount={comment?.replies_count} comment={comment} />
+                  <RepliesModal
+                    repliesCount={comment?.replies_count}
+                    comment={comment}
+                  />
                 )}
               </Box>
             </Box>
