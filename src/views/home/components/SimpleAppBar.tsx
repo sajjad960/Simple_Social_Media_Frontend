@@ -26,7 +26,7 @@ export default function SimpleAppBar() {
         <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
           {/* Your existing content */}
           <Typography variant="h6" color="inherit" component="div">
-            Hey {profile?.name}, Welcome To Simple Social Media
+            Hey {profile?.name}, Welcome To Mini Social Media Platform
           </Typography>
 
           <Button

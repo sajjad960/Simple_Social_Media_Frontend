@@ -1,13 +1,16 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
+
 import useApi from "../../hooks/useApi";
 import { SignInParams, SignInResponse } from "../../api/Common/types";
 import { useMutation } from "@tanstack/react-query";
@@ -18,17 +21,16 @@ import useProfile from "../../hooks/useProfile";
 
 export default function SignIn() {
   useRedirectIfTokenExists();
-  const api = useApi({formData: false});
+  const api = useApi({ formData: false });
   const { setAuthToken } = useAuthToken();
   const navigate = useNavigate();
-  const {setProfile} = useProfile()
-
+  const { setProfile } = useProfile();
 
   const { mutate } = useMutation({
     mutationFn: (params: SignInParams) => api.signIn(params),
     onSuccess: (data: SignInResponse) => {
       setAuthToken(data?.token);
-      setProfile(data?.user)
+      setProfile(data?.user);
       navigate("/");
     },
   });
@@ -92,14 +94,10 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/resetPassword">
-                Forgot password?
-              </Link>
+              <Link to="/resetPassword">Forgot password?</Link>
             </Grid>
             <Grid item>
-              <Link to="/signup">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
             </Grid>
           </Grid>
         </Box>
