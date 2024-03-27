@@ -17,13 +17,27 @@ import { SignUpParams, SignUpResponse } from "../../api/Common/types";
 import { Link, useNavigate } from "react-router-dom";
 import useRedirectIfTokenExists from "../../hooks/useRedirectIfTokenExists";
 import useProfile from "../../hooks/useProfile";
+import useSnackbarError from "../../hooks/useSnackbarError";
 
+type ErrorsTypes = {
+  name: string,
+  userName: string,
+  email: string,
+  password: string
+}
+
+type customError = {
+  message: string;
+  errors: object[];
+};
 export default function SignUp() {
   useRedirectIfTokenExists();
   const api = useApi({ formData: false });
   const { setAuthToken } = useAuthToken();
   const navigate = useNavigate();
   const { setProfile } = useProfile();
+  const showErrorMessage = useSnackbarError();
+  const [errors, seterrors] = React.useState<ErrorsTypes | null>();
 
   const { mutate } = useMutation({
     mutationFn: (params: SignUpParams) => api.signUp(params),
@@ -31,6 +45,21 @@ export default function SignUp() {
       setAuthToken(data?.token);
       setProfile(data?.user);
       navigate("/");
+    },
+    onError: (error: customError) => {
+      if (error.errors) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const singleObjectWithValues = error.errors.reduce((acc: any, obj) => {
+          Object.entries(obj).forEach(([key, value]) => {
+            acc[key] = value;
+          });
+          return acc;
+        }, {});
+        seterrors(singleObjectWithValues);
+      } else {
+        seterrors(null)
+        showErrorMessage({error: error.message})
+      }
     },
   });
 
@@ -47,7 +76,6 @@ export default function SignUp() {
 
     mutate(bodyData);
   };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -76,6 +104,8 @@ export default function SignUp() {
                 id="name"
                 label="Name"
                 autoFocus
+                error={errors?.name && true || false}
+                helperText={errors?.name && errors?.name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -86,6 +116,8 @@ export default function SignUp() {
                 fullWidth
                 id="userName"
                 label="User Name"
+                error={errors?.userName && true || false}
+                helperText={errors?.userName && errors?.userName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -96,6 +128,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                error={errors?.email && true || false}
+                helperText={errors?.email && errors?.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,6 +141,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                error={errors?.password && true || false}
+                helperText={errors?.password && errors?.password}
               />
             </Grid>
           </Grid>

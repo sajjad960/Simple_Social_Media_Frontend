@@ -18,6 +18,7 @@ import useAuthToken from "../../hooks/auth/useAuthToken";
 import { Link, useNavigate } from "react-router-dom";
 import useRedirectIfTokenExists from "../../hooks/useRedirectIfTokenExists";
 import useProfile from "../../hooks/useProfile";
+import useSnackbarError from "../../hooks/useSnackbarError";
 
 export default function SignIn() {
   useRedirectIfTokenExists();
@@ -25,6 +26,8 @@ export default function SignIn() {
   const { setAuthToken } = useAuthToken();
   const navigate = useNavigate();
   const { setProfile } = useProfile();
+  const showErrorMessage = useSnackbarError();
+
 
   const { mutate } = useMutation({
     mutationFn: (params: SignInParams) => api.signIn(params),
@@ -33,9 +36,11 @@ export default function SignIn() {
       setProfile(data?.user);
       navigate("/");
     },
+    onError: (error) => {
+      showErrorMessage({error: error.message})
+    }
   });
 
-  console.log("check sing in ");
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -73,6 +78,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            type="email"
           />
           <TextField
             margin="normal"
@@ -94,7 +100,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/resetPassword">Forgot password?</Link>
+              {/* <Link to="/resetPassword">Forgot password?</Link> */}
             </Grid>
             <Grid item>
               <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
